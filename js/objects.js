@@ -1,78 +1,26 @@
-(function() {
-    const cnv = document.querySelector("canvas");
-    const ctx = cnv.getContext("2d");
+var Sprite = function(sourceX, sourceY, width, height, x, y) {
+    this.sourceX = sourceX;
+    this.sourceY = sourceY;
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    this.vx = 0;
+    this.vy = 0;
+};
 
-    const left = 37,
-        right = 39,
-        enter = 13,
-        space = 32;
+Sprite.prototype.centerX = function() {
+    return this.x + this.width / 2;
+};
 
-    var mvLeft = (mvRight = false);
+Sprite.prototype.centerY = function() {
+    return this.y + this.height / 2;
+};
 
-    var loading = 0,
-        playing = 1,
-        paused = 2,
-        over = 3;
-    var gameState = loading;
+Sprite.prototype.halfWidth = function() {
+    return this.width / 2;
+};
 
-    window.addEventListener(
-        "keydown",
-        e => {
-            var key = e.keyCode;
-            switch (key) {
-                case left:
-                    mvLeft = true;
-                    break;
-                case right:
-                    mvRight = true;
-                    break;
-            }
-
-            console.log(key);
-        },
-        false
-    );
-
-    window.addEventListener("keyup", e => {
-        var key = e.keyCode;
-        switch (key) {
-            case left:
-                mvLeft = false;
-                break;
-            case right:
-                mvRight = false;
-                break;
-            case enter:
-                if (gameState !== playing) {
-                    gameState = playing;
-                } else {
-                    gameState = paused;
-                }
-        }
-
-        console.log(key);
-    });
-
-    function loop() {
-        requestAnimationFrame(loop, cnv);
-
-        switch (gameState) {
-            case loading:
-                console.log("LOADING...");
-                break;
-            case playing:
-                update();
-                break;
-        }
-
-        render();
-    }
-
-    function update() {}
-
-    function render() {
-        alert("rende");
-    }
-
-    loop();
-})();
+Sprite.prototype.halfHeight = function() {
+    return this.height / 2;
+};
